@@ -6,7 +6,6 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.filters import CommandStart
 from keyboards import languages_button
-from aiogram.client.session.aiohttp import AiohttpSession
 
 class Translate(StatesGroup):
     lang = State()
