@@ -11,7 +11,7 @@ from aiogram.client.session.aiohttp import AiohttpSession
 class Translate(StatesGroup):
     lang = State()
     trans = State()
-bot = Bot("5904607271:AAH-edy50mxak7BhgfeCB-9oLnlrK5QMPiM")
+bot = Bot("5904607271:AAEDJWUULTrD3zV8HOY7JbU94aiXk5Qexno")
 dp = Dispatcher()
 
 @dp.message(CommandStart())
