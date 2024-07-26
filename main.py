@@ -11,7 +11,7 @@ class Translate(StatesGroup):
     lang = State()
     trans = State()
 
-bot = Bot("7253404934:AAEGUJXQ8MbJBaHxFch7J_g9hazcJlOK6M4")
+bot = Bot("token")
 dp = Dispatcher()
 
 @dp.message(CommandStart())
