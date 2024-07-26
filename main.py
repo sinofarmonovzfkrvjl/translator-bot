@@ -10,7 +10,7 @@ from keyboards import languages_button
 class Translate(StatesGroup):
     lang = State()
     trans = State()
-bot = Bot("5904607271:AAEDJWUULTrD3zV8HOY7JbU94aiXk5Qexno")
+bot = Bot("token")
 dp = Dispatcher()
 
 @dp.message(CommandStart())
