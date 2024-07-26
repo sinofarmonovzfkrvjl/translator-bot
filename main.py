@@ -21,7 +21,7 @@ async def signup(message: types.Message, state: FSMContext):
         read = file.read()
         if str(id) not in read:
             with open('database.txt', 'a') as file:
-                file.write(f" {id} ")
+                file.write(f"{id}\n")
         else:
             pass
     await message.answer(f"Salom <b>{message.from_user.full_name}</b>\nmatningiz qaysi tildaligini tanlang\nmatnni tarjima qilish uchun tilni tanlang", parse_mode='HTML', reply_markup=languages_button)
