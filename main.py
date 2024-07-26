@@ -10,7 +10,8 @@ from keyboards import languages_button
 class Translate(StatesGroup):
     lang = State()
     trans = State()
-bot = Bot("token")
+
+bot = Bot("7253404934:AAEGUJXQ8MbJBaHxFch7J_g9hazcJlOK6M4")
 dp = Dispatcher()
 
 @dp.message(CommandStart())
@@ -74,5 +75,6 @@ async def start():
     await dp.start_polling(bot)
 
 
-logging.basicConfig(level=logging.INFO)
-run(start())
+if __name__=='__main__':
+    logging.basicConfig(level=logging.INFO)
+    run(start())
