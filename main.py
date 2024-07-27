@@ -29,7 +29,7 @@ async def signup(message: types.Message, state: FSMContext):
                 file.write(f"{id}\n")
         else:
             pass
-    msg = await message.answer("Tilni tanlang | select language | выберите язык", reply_markup=ReplyKeyboardRemove())
+    msg = await message.answer("Tilni tanlang | select language | выберите язык", reply_markup=bot_langauge)
     await state.set_state(Translate.lang)
 
 @dp.message(Translate.lang)
