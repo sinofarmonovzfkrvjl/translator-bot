@@ -57,10 +57,25 @@ async def translate(message: types.Message, state: FSMContext):
         text = GoogleTranslator(source='uz', target='ko-KR').translate(message.text)
         await message.answer(text, reply_markup=languages_button)
     elif data1.get("lang") == "🇰🇷 한국인(korean) -  우즈벡어(uzbek) 🇺🇿":
-        text = GoogleTranslator(source='uz', target='ko-KR').translate(message.text)
+        text = GoogleTranslator(source='ko-KR', target='uz').translate(message.text)
         await message.answer(text, reply_markup=languages_button)
     elif data1.get("lang") == "🇺🇿 O'zbekcha - Turkcha 🇹🇷":
-        text = GoogleTranslator(source='uz', target='ko-KR').translate(message.text)
+        text = GoogleTranslator(source='uz', target='tr').translate(message.text)
+        await message.answer(text, reply_markup=languages_button)
+    elif data1.get("lang") == "🇹🇷 Türkçe(turkish) - Özbekçe(uzbek) 🇺🇿":
+        text = GoogleTranslator(source='tr', target='uz').translate(message.text)
+        await message.answer(text, reply_markup=languages_button)
+    elif data1.get("lang") == "🇺🇿 O'zbekcha - Nemischa 🇩🇪":
+        text = GoogleTranslator(source='uz', target='de').translate(message.text)
+        await message.answer(text, reply_markup=languages_button)
+    elif data1.get("lang") == "🇩🇪 Deutsch(german) - Usbekisch 🇺🇿":
+        text = GoogleTranslator(source='de', target='uz').translate(message.text)
+        await message.answer(text, reply_markup=languages_button)
+    elif data1.get("lang") == "🇺🇿 O'zbekcha - Ispancha 🇪🇸":
+        text = GoogleTranslator(source='uz', target='es').translate(message.text)
+        await message.answer(text, reply_markup=languages_button)
+    elif data1.get("lang") == "🇪🇸 Española(spanish) - Uzbeko 🇺🇿":
+        text = GoogleTranslator(source='es', target='uz').translate(message.text)
         await message.answer(text, reply_markup=languages_button)
     await state.set_state(Translate.lang)
 
