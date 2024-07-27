@@ -13,6 +13,8 @@ class Translate(StatesGroup):
     lang = State()
     trans = State()
 
+load_dotenv()
+
 bot = Bot(str(os.getenv("TOKEN")))
 dp = Dispatcher()
 
@@ -55,10 +57,10 @@ async def translate(message: types.Message, state: FSMContext):
         text = GoogleTranslator(source='auto', target='')
     await state.set_state(Translate.lang)
 
-@dp.message()
-async def sSs(message: types.Message):
+@dp.callback_query()
+async def sSs(call: types.CallbackQuery):
     msg.delete()
-    await message.answer(f"Salom <b>{message.from_user.full_name}</b>\nmatningiz qaysi tildaligini tanlang\nmatnni tarjima qilish uchun tilni tanlang", parse_mode='HTML', reply_markup=languages_button)
+    await call.message.answer(f"Salom <b>{call.message.from_user.full_name}</b>\nmatningiz qaysi tildaligini tanlang\nmatnni tarjima qilish uchun tilni tanlang", parse_mode='HTML', reply_markup=languages_button)
 
 @dp.startup()
 async def startup(bot: Bot):

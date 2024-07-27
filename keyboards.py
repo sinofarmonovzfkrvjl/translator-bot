@@ -11,9 +11,9 @@ languages_button = ReplyKeyboardMarkup(
 
 bot_langauge = InlineKeyboardMarkup(
     inline_keyboard=[
-        [InlineKeyboardButton(text="O'zbekcha 🇺🇿")],
-        [InlineKeyboardButton(text="English 🇺🇸")],
-        [InlineKeyboardButton(text="Русский 🇷🇺")]
+        [InlineKeyboardButton(text="O'zbekcha 🇺🇿", callback_data='uz')],
+        [InlineKeyboardButton(text="English 🇺🇸", callback_data='en')],
+        [InlineKeyboardButton(text="Русский 🇷🇺", callback_data='ru')]
     ]
 )
 # [KeyboardButton(text="bilmayman")]
