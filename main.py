@@ -13,7 +13,7 @@ class Translate(StatesGroup):
     lang = State()
     trans = State()
 
-bot = Bot(os.getenv("TOKEN"))
+bot = Bot(str(os.getenv("TOKEN")))
 dp = Dispatcher()
 
 @dp.message(CommandStart())
