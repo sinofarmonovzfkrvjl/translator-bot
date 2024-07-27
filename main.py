@@ -5,7 +5,7 @@ from deep_translator import GoogleTranslator
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.filters import CommandStart
-from keyboards import languages_button, bot_langauge
+from keyboards import languages_button, bot_langauge, ReplyKeyboardRemove
 from dotenv import load_dotenv
 import os
 
@@ -29,7 +29,7 @@ async def signup(message: types.Message, state: FSMContext):
                 file.write(f"{id}\n")
         else:
             pass
-    msg = await message.answer("Tilni tanlang | select language | выберите язык", reply_markup=bot_langauge)
+    msg = await message.answer("Tilni tanlang | select language | выберите язык", reply_markup=ReplyKeyboardRemove())
     await state.set_state(Translate.lang)
 
 @dp.message(Translate.lang)
