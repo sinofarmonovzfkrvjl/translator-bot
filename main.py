@@ -61,6 +61,7 @@ async def translate(message: types.Message, state: FSMContext):
 async def sSs(call: types.CallbackQuery):
     msg.delete()
     await call.message.answer(f"Salom <b>{call.message.from_user.full_name}</b>\nmatningiz qaysi tildaligini tanlang\nmatnni tarjima qilish uchun tilni tanlang", parse_mode='HTML', reply_markup=languages_button)
+    await call.answer(cache_time=10)
 
 @dp.startup()
 async def startup(bot: Bot):
