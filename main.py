@@ -53,8 +53,15 @@ async def translate(message: types.Message, state: FSMContext):
     elif data1.get("lang") == "🇷🇺 Русский - O'zbekcha 🇺🇿":
         text = GoogleTranslator(source='ru', target='uz').translate(message.text)
         await message.answer(text, reply_markup=languages_button)
-    elif data1.get("lang") == "bilmayman":
-        text = GoogleTranslator(source='auto', target='')
+    elif data1.get("lang") == "🇺🇿 O'zbekcha - Koreyscha 🇰🇷":
+        text = GoogleTranslator(source='uz', target='ko-KR').translate(message.text)
+        await message.answer(text, reply_markup=languages_button)
+    elif data1.get("lang") == "🇰🇷 한국인(korean) -  우즈벡어(uzbek) 🇺🇿":
+        text = GoogleTranslator(source='uz', target='ko-KR').translate(message.text)
+        await message.answer(text, reply_markup=languages_button)
+    elif data1.get("lang") == "🇺🇿 O'zbekcha - Turkcha 🇹🇷":
+        text = GoogleTranslator(source='uz', target='ko-KR').translate(message.text)
+        await message.answer(text, reply_markup=languages_button)
     await state.set_state(Translate.lang)
 
 @dp.callback_query()
