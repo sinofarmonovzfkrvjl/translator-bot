@@ -88,7 +88,16 @@ async def translate(message: types.Message, state: FSMContext):
 @dp.callback_query()
 async def sSs(call: types.CallbackQuery):
     msg.delete()
-    await call.message.answer(f"Salom <b>{call.message.from_user.full_name}</b>\nmatningiz qaysi tildaligini tanlang\nmatnni tarjima qilish uchun tilni tanlang", parse_mode='HTML', reply_markup=languages_button)
+    global lang
+    if call.data == "uz":
+        lang = "uz"
+        await call.message.answer(f"Salom <b>{call.message.from_user.full_name}</b>\men tarjimon botman\nmatnni tarjima qilish uchun tilni tanlang", parse_mode='HTML', reply_markup=languages_button)
+    elif call.data == "en":
+        lang = "en"
+        await call.message.answer(f"Hello <b>{call.message.from_user.full_name}</b>\ni'm translator bot\nselect the language", parse_mode='HTML', reply_markup=languages_button)
+    elif call.data == "ru":
+        lang = "ru"
+        await call.message.answer(f"Здравствуйте <b>{call.message.from_user.full_name}</b>\nя бот переводчик\nвыберите язык", parse_mode='HTML', reply_markup=languages_button)
     await call.answer(cache_time=10)
 
 @dp.startup()
@@ -108,9 +117,18 @@ async def shutdown(bot: Bot):
 async def start():
     # session = AiohttpSession(proxy="http://proxy.server:3128/")
     # , session=session
-    await bot.set_my_commands([
-        types.BotCommand(command='/start', description="botni ishga tushurish")
-    ])
+    if lang == "uz":
+        await bot.set_my_commands([
+            types.BotCommand(command='/start', description="botni ishga tushurish")
+        ])
+    elif lang == "en":
+        await bot.set_my_commands([
+            types.BotCommand(command='/start', description="start the bot")
+        ])
+    elif lang == "ru":
+        await bot.set_my_commands([
+            types.BotCommand(command='/start', description="запустить бота")
+        ])
     await dp.start_polling(bot)
 
 
