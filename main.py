@@ -45,21 +45,20 @@ async def translate(message: types.Message, state: FSMContext):
     if data1.get("lang") == "🇺🇿 O'zbekcha - English 🇺🇸":
         text = GoogleTranslator(source='uz', target='en').translate(message.text)
         await message.answer(text, reply_markup=languages_button)
-        await message.answer_audio(audio=open(gTTS(lang="en", text=text).save(), "rb"))
+        print(gTTS(text=text, lang='en', slow=False).save('audio.mp3'))
+        await message.answer_audio(audio=open('audio.mp3', 'rb'), reply_markup=ReplyKeyboardRemove())
     elif data1.get("lang") == "🇺🇸 English - O'zbekcha 🇺🇿":
         text = GoogleTranslator(source='en', target='uz').translate(message.text)
         await message.answer(text, reply_markup=languages_button)
     elif data1.get("lang") == "🇺🇿 O'zbekcha - Русский 🇷🇺":
         text = GoogleTranslator(source='uz', target='ru').translate(message.text)
         await message.answer(text, reply_markup=languages_button)
-        await message.answer_audio(audio=open(gTTS(lang="ru", text=text).save(), "rb"))
     elif data1.get("lang") == "🇷🇺 Русский - O'zbekcha 🇺🇿":
         text = GoogleTranslator(source='ru', target='uz').translate(message.text)
         await message.answer(text, reply_markup=languages_button)
     elif data1.get("lang") == "🇺🇿 O'zbekcha - Koreyscha 🇰🇷":
         text = GoogleTranslator(source='uz', target='ko').translate(message.text)
         await message.answer(text, reply_markup=languages_button)
-        await message.answer_audio(audio=open(gTTS(lang="ko", text=text).save(), "rb"))
     elif data1.get("lang") == "🇰🇷 한국인(korean) -  우즈벡어(uzbek) 🇺🇿":
         text = GoogleTranslator(source='ko', target='uz').translate(message.text)
         await message.answer(text, reply_markup=languages_button)
@@ -72,14 +71,12 @@ async def translate(message: types.Message, state: FSMContext):
     elif data1.get("lang") == "🇺🇿 O'zbekcha - Nemischa 🇩🇪":
         text = GoogleTranslator(source='uz', target='de').translate(message.text)
         await message.answer(text, reply_markup=languages_button)
-        await message.answer_audio(audio=open(gTTS(lang="de", text=text).save(), "rb"))
     elif data1.get("lang") == "🇩🇪 Deutsch(german) - Usbekisch 🇺🇿":
         text = GoogleTranslator(source='de', target='uz').translate(message.text)
         await message.answer(text, reply_markup=languages_button)
     elif data1.get("lang") == "🇺🇿 O'zbekcha - Ispancha 🇪🇸":
         text = GoogleTranslator(source='uz', target='es').translate(message.text)
         await message.answer(text, reply_markup=languages_button)
-        await message.answer_audio(audio=open(gTTS(lang="es", text=text).save(), "rb"))
     elif data1.get("lang") == "🇪🇸 Española(spanish) - Uzbeko 🇺🇿":
         text = GoogleTranslator(source='es', target='uz').translate(message.text)
         await message.answer(text, reply_markup=languages_button)
@@ -88,16 +85,7 @@ async def translate(message: types.Message, state: FSMContext):
 @dp.callback_query()
 async def sSs(call: types.CallbackQuery):
     msg.delete()
-    global lang
-    if call.data == "uz":
-        lang = "uz"
-        await call.message.answer(f"Salom <b>{call.message.from_user.full_name}</b>\men tarjimon botman\nmatnni tarjima qilish uchun tilni tanlang", parse_mode='HTML', reply_markup=languages_button)
-    elif call.data == "en":
-        lang = "en"
-        await call.message.answer(f"Hello <b>{call.message.from_user.full_name}</b>\ni'm translator bot\nselect the language", parse_mode='HTML', reply_markup=languages_button)
-    elif call.data == "ru":
-        lang = "ru"
-        await call.message.answer(f"Здравствуйте <b>{call.message.from_user.full_name}</b>\nя бот переводчик\nвыберите язык", parse_mode='HTML', reply_markup=languages_button)
+    await call.message.answer(f"Salom <b>{call.message.from_user.full_name}</b>\nmatningiz qaysi tildaligini tanlang\nmatnni tarjima qilish uchun tilni tanlang", parse_mode='HTML', reply_markup=languages_button)
     await call.answer(cache_time=10)
 
 @dp.startup()
@@ -117,18 +105,9 @@ async def shutdown(bot: Bot):
 async def start():
     # session = AiohttpSession(proxy="http://proxy.server:3128/")
     # , session=session
-    if lang == "uz":
-        await bot.set_my_commands([
-            types.BotCommand(command='/start', description="botni ishga tushurish")
-        ])
-    elif lang == "en":
-        await bot.set_my_commands([
-            types.BotCommand(command='/start', description="start the bot")
-        ])
-    elif lang == "ru":
-        await bot.set_my_commands([
-            types.BotCommand(command='/start', description="запустить бота")
-        ])
+    await bot.set_my_commands([
+        types.BotCommand(command='/start', description="botni ishga tushurish")
+    ])
     await dp.start_polling(bot)
 
 
