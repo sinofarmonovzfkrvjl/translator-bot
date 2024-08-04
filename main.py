@@ -8,6 +8,7 @@ from aiogram.filters import CommandStart
 from keyboards import languages_button, bot_langauge, ReplyKeyboardRemove
 from dotenv import load_dotenv
 import os
+from gtts import gTTS
 
 class Translate(StatesGroup):
     lang = State()
@@ -44,18 +45,21 @@ async def translate(message: types.Message, state: FSMContext):
     if data1.get("lang") == "🇺🇿 O'zbekcha - English 🇺🇸":
         text = GoogleTranslator(source='uz', target='en').translate(message.text)
         await message.answer(text, reply_markup=languages_button)
+        await message.answer_audio(audio=open(gTTS(lang="en", text=text).save(), "rb"))
     elif data1.get("lang") == "🇺🇸 English - O'zbekcha 🇺🇿":
         text = GoogleTranslator(source='en', target='uz').translate(message.text)
         await message.answer(text, reply_markup=languages_button)
     elif data1.get("lang") == "🇺🇿 O'zbekcha - Русский 🇷🇺":
         text = GoogleTranslator(source='uz', target='ru').translate(message.text)
         await message.answer(text, reply_markup=languages_button)
+        await message.answer_audio(audio=open(gTTS(lang="ru", text=text).save(), "rb"))
     elif data1.get("lang") == "🇷🇺 Русский - O'zbekcha 🇺🇿":
         text = GoogleTranslator(source='ru', target='uz').translate(message.text)
         await message.answer(text, reply_markup=languages_button)
     elif data1.get("lang") == "🇺🇿 O'zbekcha - Koreyscha 🇰🇷":
         text = GoogleTranslator(source='uz', target='ko').translate(message.text)
         await message.answer(text, reply_markup=languages_button)
+        await message.answer_audio(audio=open(gTTS(lang="ko", text=text).save(), "rb"))
     elif data1.get("lang") == "🇰🇷 한국인(korean) -  우즈벡어(uzbek) 🇺🇿":
         text = GoogleTranslator(source='ko', target='uz').translate(message.text)
         await message.answer(text, reply_markup=languages_button)
@@ -68,12 +72,14 @@ async def translate(message: types.Message, state: FSMContext):
     elif data1.get("lang") == "🇺🇿 O'zbekcha - Nemischa 🇩🇪":
         text = GoogleTranslator(source='uz', target='de').translate(message.text)
         await message.answer(text, reply_markup=languages_button)
+        await message.answer_audio(audio=open(gTTS(lang="de", text=text).save(), "rb"))
     elif data1.get("lang") == "🇩🇪 Deutsch(german) - Usbekisch 🇺🇿":
         text = GoogleTranslator(source='de', target='uz').translate(message.text)
         await message.answer(text, reply_markup=languages_button)
     elif data1.get("lang") == "🇺🇿 O'zbekcha - Ispancha 🇪🇸":
         text = GoogleTranslator(source='uz', target='es').translate(message.text)
         await message.answer(text, reply_markup=languages_button)
+        await message.answer_audio(audio=open(gTTS(lang="es", text=text).save(), "rb"))
     elif data1.get("lang") == "🇪🇸 Española(spanish) - Uzbeko 🇺🇿":
         text = GoogleTranslator(source='es', target='uz').translate(message.text)
         await message.answer(text, reply_markup=languages_button)
