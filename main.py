@@ -5,7 +5,7 @@ from deep_translator import GoogleTranslator
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.filters import CommandStart
-from keyboards import languages_button, bot_langauge, ReplyKeyboardRemove
+from keyboards import languages_button, ReplyKeyboardRemove
 from dotenv import load_dotenv
 import os
 from gtts import gTTS
@@ -30,7 +30,7 @@ async def signup(message: types.Message, state: FSMContext):
                 file.write(f"{id}\n")
         else:
             pass
-    msg = await message.answer("Tilni tanlang | select language | выберите язык", reply_markup=bot_langauge)
+    await message.answer(f"Salom <b>{message.from_user.full_name}</b>\nmatningiz qaysi tildaligini tanlang\nmatnni tarjima qilish uchun tilni tanlang", parse_mode='HTML', reply_markup=languages_button)
     await state.set_state(Translate.lang)
 
 @dp.message(Translate.lang)
@@ -45,7 +45,7 @@ async def translate(message: types.Message, state: FSMContext):
     if data1.get("lang") == "🇺🇿 O'zbekcha - English 🇺🇸":
         text = GoogleTranslator(source='uz', target='en').translate(message.text)
         await message.answer(text, reply_markup=languages_button)
-        print(gTTS(text=text, lang='en', slow=False).save('audio.mp3'))
+        gTTS(text=text, lang='en').save('audio.mp3')
         await message.answer_audio(audio=open('audio.mp3', 'rb'), reply_markup=ReplyKeyboardRemove())
     elif data1.get("lang") == "🇺🇸 English - O'zbekcha 🇺🇿":
         text = GoogleTranslator(source='en', target='uz').translate(message.text)
@@ -53,7 +53,7 @@ async def translate(message: types.Message, state: FSMContext):
     elif data1.get("lang") == "🇺🇿 O'zbekcha - Русский 🇷🇺":
         text = GoogleTranslator(source='uz', target='ru').translate(message.text)
         await message.answer(text, reply_markup=languages_button)
-        print(gTTS(text=text, lang='ru').save('audio.mp3'))
+        gTTS(text=text, lang='ru').save('audio.mp3')
         await message.answer_audio(audio=open('audio.mp3', 'rb'), reply_markup=ReplyKeyboardRemove())
     elif data1.get("lang") == "🇷🇺 Русский - O'zbekcha 🇺🇿":
         text = GoogleTranslator(source='ru', target='uz').translate(message.text)
@@ -61,7 +61,7 @@ async def translate(message: types.Message, state: FSMContext):
     elif data1.get("lang") == "🇺🇿 O'zbekcha - Koreyscha 🇰🇷":
         text = GoogleTranslator(source='uz', target='ko').translate(message.text)
         await message.answer(text, reply_markup=languages_button)
-        print(gTTS(text=text, lang='ko').save('audio.mp3'))
+        gTTS(text=text, lang='ko').save('audio.mp3')
         await message.answer_audio(audio=open('audio.mp3', 'rb'), reply_markup=ReplyKeyboardRemove())
     elif data1.get("lang") == "🇰🇷 한국인(korean) -  우즈벡어(uzbek) 🇺🇿":
         text = GoogleTranslator(source='ko', target='uz').translate(message.text)
@@ -69,7 +69,7 @@ async def translate(message: types.Message, state: FSMContext):
     elif data1.get("lang") == "🇺🇿 O'zbekcha - Turkcha 🇹🇷":
         text = GoogleTranslator(source='uz', target='tr').translate(message.text)
         await message.answer(text, reply_markup=languages_button)
-        print(gTTS(text=text, lang='tr').save('audio.mp3'))
+        gTTS(text=text, lang='tr').save('audio.mp3')
         await message.answer_audio(audio=open('audio.mp3', 'rb'), reply_markup=ReplyKeyboardRemove())
     elif data1.get("lang") == "🇹🇷 Türkçe(turkish) - Özbekçe(uzbek) 🇺🇿":
         text = GoogleTranslator(source='tr', target='uz').translate(message.text)
@@ -77,7 +77,7 @@ async def translate(message: types.Message, state: FSMContext):
     elif data1.get("lang") == "🇺🇿 O'zbekcha - Nemischa 🇩🇪":
         text = GoogleTranslator(source='uz', target='de').translate(message.text)
         await message.answer(text, reply_markup=languages_button)
-        print(gTTS(text=text, lang='de').save('audio.mp3'))
+        gTTS(text=text, lang='de').save('audio.mp3')
         await message.answer_audio(audio=open('audio.mp3', 'rb'), reply_markup=ReplyKeyboardRemove())
     elif data1.get("lang") == "🇩🇪 Deutsch(german) - Usbekisch 🇺🇿":
         text = GoogleTranslator(source='de', target='uz').translate(message.text)
@@ -85,18 +85,12 @@ async def translate(message: types.Message, state: FSMContext):
     elif data1.get("lang") == "🇺🇿 O'zbekcha - Ispancha 🇪🇸":
         text = GoogleTranslator(source='uz', target='es').translate(message.text)
         await message.answer(text, reply_markup=languages_button)
-        print(gTTS(text=text, lang='es').save('audio.mp3'))
+        gTTS(text=text, lang='es').save('audio.mp3')
         await message.answer_audio(audio=open('audio.mp3', 'rb'), reply_markup=ReplyKeyboardRemove())
     elif data1.get("lang") == "🇪🇸 Española(spanish) - Uzbeko 🇺🇿":
         text = GoogleTranslator(source='es', target='uz').translate(message.text)
         await message.answer(text, reply_markup=languages_button)
     await state.set_state(Translate.lang)
-
-@dp.callback_query()
-async def sSs(call: types.CallbackQuery):
-    msg.delete()
-    await call.message.answer(f"Salom <b>{call.message.from_user.full_name}</b>\nmatningiz qaysi tildaligini tanlang\nmatnni tarjima qilish uchun tilni tanlang", parse_mode='HTML', reply_markup=languages_button)
-    await call.answer(cache_time=10)
 
 @dp.startup()
 async def startup(bot: Bot):
