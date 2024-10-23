@@ -4,7 +4,7 @@ import logging
 from deep_translator import GoogleTranslator
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
-from aiogram.filters import CommandStart
+from aiogram.filters import CommandStart, Command
 from keyboards import languages_button, ReplyKeyboardRemove
 from dotenv import load_dotenv
 import os
@@ -30,8 +30,14 @@ async def signup(message: types.Message, state: FSMContext):
                 file.write(f"{id}\n")
         else:
             pass
-    await message.answer(f"Salom <b>{message.from_user.full_name}</b>\nmatningiz qaysi tildaligini tanlang\nmatnni tarjima qilish uchun tilni tanlang", parse_mode='HTML', reply_markup=languages_button)
+    await message.answer(f"Salom <b>{message.from_user.full_name}</b>\nmatnni tarjima qilish uchun tilni tanlang", parse_mode='HTML', reply_markup=languages_button)
     await state.set_state(Translate.lang)
+
+@dp.message(Command("users"))
+async def users(message: types.Message):
+    with open('database.txt', 'r') as file:
+        read = file.read()
+        await message.answer(f"{read}")
 
 @dp.message(Translate.lang)
 async def TranslateLang(message: types.Message, state: FSMContext):
