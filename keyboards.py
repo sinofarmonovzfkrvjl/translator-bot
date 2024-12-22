@@ -19,4 +19,3 @@ bot_langauge = InlineKeyboardMarkup(
         [InlineKeyboardButton(text="Русский 🇷🇺", callback_data='ru')]
     ]
 )
-# [KeyboardButton(text="bilmayman")]
